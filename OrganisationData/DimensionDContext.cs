@@ -6,6 +6,8 @@ namespace OrganisationData
 {
     public partial class DimensionDContext : DbContext
     {
+
+
         public DimensionDContext()
         {
         }
@@ -16,22 +18,19 @@ namespace OrganisationData
         }
 
         public virtual DbSet<Data> Data { get; set; }
+       
         public virtual DbSet<LoginUser> LoginUser { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=DimensionD;Integrated Security=True");
-            }
-        }
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Data>()
+               .HasKey(o => o.EmployeeNumber);
+
             modelBuilder.Entity<Data>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.Property(e => e.Age)
                     .HasMaxLength(50)
@@ -199,9 +198,9 @@ namespace OrganisationData
                     .IsUnicode(false);
             });
 
-            OnModelCreatingPartial(modelBuilder);
+            OnModelCreating(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+       // partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

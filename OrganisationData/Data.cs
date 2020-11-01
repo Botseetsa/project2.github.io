@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OrganisationData
 {
     public partial class Data
     {
+        [Key]
+
+        public int PrimaryTrackingKey { get; set; }
         public string Age { get; set; }
         public string Attrition { get; set; }
         public string BusinessTravel { get; set; }
@@ -14,7 +18,8 @@ namespace OrganisationData
         public string Education { get; set; }
         public string EducationField { get; set; }
         public string EmployeeCount { get; set; }
-        public string EmployeeNumber { get; set; }
+        
+        public string  EmployeeNumber { get; set; }
         public string EnvironmentSatisfaction { get; set; }
         public string Gender { get; set; }
         public string HourlyRate { get; set; }

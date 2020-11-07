@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OrganisationData;
+using OrganisationData.Models;
 
 namespace OrganisationData
 {
@@ -28,11 +29,7 @@ namespace OrganisationData
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDefaultIdentity<IdentityUser>();
-
-            var connection = Configuration.GetConnectionString("DimensionDdatabase");
-            services.AddDbContext<DimensionDContext>(options => options.UseSqlServer("Data Source = DimensionD.dbo "));
-
+            services.AddDbContext<AppUser>(options => options.UseSqlServer(Configuration.GetConnectionString("DimensionDdatabase")));
 
             
             

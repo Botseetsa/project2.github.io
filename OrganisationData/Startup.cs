@@ -5,15 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OrganisationData;
 
 namespace OrganisationData
 {
     public class Startup
     {
+       
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,11 +27,14 @@ namespace OrganisationData
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
+            services.AddDefaultIdentity<IdentityUser>();
 
             var connection = Configuration.GetConnectionString("DimensionDdatabase");
-            services.AddDbContext<DimensionDContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<DimensionDContext>(options => options.UseSqlServer("Data Source = DimensionD.dbo "));
 
+
+            
             
             services.AddControllersWithViews();
         }
@@ -49,9 +55,13 @@ namespace OrganisationData
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+
             app.UseRouting();
 
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

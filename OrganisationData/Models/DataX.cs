@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrganisationData
 {
-    public partial class Data
+    public partial class DataX
     {
         [Key]
 
